@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Created-By: Octavio Calleya
+Main-Class: com.transgressoft.timecode.TimecodeStringRunner
+Name: Timecode String Representation
+Implementation-Title: Timecode String Representation
+Implementation-Version: 0.1
