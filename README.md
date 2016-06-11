@@ -5,6 +5,18 @@ Library that converts between frame counts and a [timecode](https://en.wikipedia
 You can use the TimecodeString library by two ways:
 
 1. Instantiating the `TimecodeString.java` class in your java project
+
+```java
+String frameRate = "25fps";
+String value = "01:20:59:24"
+TimecodeString timecode = TimecodeString.of(frameRate, value);
+String oppositeRepresentation = timecode.getOppositeRepresentation(); // = 121499
+
+String frameRate = "25fps";
+String value = "121499"
+TimecodeString timecode = TimecodeString.of(frameRate, value);
+String oppositeRepresentation = timecode.getOppositeRepresentation(); // = "01:20:59:24"
+```
 2. Using it as a command line program with the packaged `.jar` passing arguments to it (thanks to [docopt](https://github.com/docopt/docopt.java)) with the following usage:
 
 ```
