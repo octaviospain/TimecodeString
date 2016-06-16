@@ -1,4 +1,6 @@
 # TimecodeString
+[![Build Status](https://travis-ci.org/octaviospain/TimecodeString.svg?branch=master)](https://travis-ci.org/octaviospain/TimecodeString)
+
 Library that converts between frame counts and a [timecode](https://en.wikipedia.org/wiki/SMPTE_timecode) string representation. The library supports multiple frame rates including 25fps and DF30 (29.97fps).
 
 # Usage
