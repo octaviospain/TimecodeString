@@ -30,7 +30,7 @@ public class Df30TimecodeTest {
 		expectedStringRepresentation += String.format("%02d", expectedFrames);
 		String expectedToString = "Timecode[" + expectedStringRepresentation + "/" + expectedFrameCount + "]";
 
-		actualTimecode.substract(timecodeToSubstract);
+		actualTimecode.subtract(timecodeToSubstract);
 
 		assertEquals(expectedFrames, actualTimecode.getFrames());
 		assertEquals(expectedSeconds, actualTimecode.getSeconds());
@@ -58,7 +58,7 @@ public class Df30TimecodeTest {
 		expectedStringRepresentation += String.format("%02d", expectedFrames);
 		String expectedToString = "Timecode[" + expectedStringRepresentation + "/" + expectedFrameCount + "]";
 
-		actualTimecode.substract(timecodeToSubstract);
+		actualTimecode.subtract(timecodeToSubstract);
 
 		assertEquals(expectedFrames, actualTimecode.getFrames());
 		assertEquals(expectedSeconds, actualTimecode.getSeconds());
@@ -86,7 +86,7 @@ public class Df30TimecodeTest {
 		expectedStringRepresentation += String.format("%02d", expectedFrames);
 		String expectedToString = "Timecode[" + expectedStringRepresentation + "/" + expectedFrameCount + "]";
 
-		actualTimecode.substract(timecodeToSubstract);
+		actualTimecode.subtract(timecodeToSubstract);
 
 		assertEquals(expectedFrames, actualTimecode.getFrames());
 		assertEquals(expectedSeconds, actualTimecode.getSeconds());
@@ -114,7 +114,7 @@ public class Df30TimecodeTest {
 		expectedStringRepresentation += String.format("%02d", expectedFrames);
 		String expectedToString = "Timecode[" + expectedStringRepresentation + "/" + expectedFrameCount + "]";
 
-		actualTimecode.substract(timecodeToSubstract);
+		actualTimecode.subtract(timecodeToSubstract);
 
 		assertEquals(expectedFrames, actualTimecode.getFrames());
 		assertEquals(expectedSeconds, actualTimecode.getSeconds());
@@ -130,7 +130,7 @@ public class Df30TimecodeTest {
 		Timecode actualTimecode = TimecodeFactory.createTimeCode(FrameRateType.DF30, 5, 5, 15, 20);
 		Timecode timecodeToSubstract = TimecodeFactory.createTimeCode(FrameRateType.DF30, 23, 59, 59, 24);
 
-		actualTimecode.substract(timecodeToSubstract).substract(timecodeToSubstract);
+		actualTimecode.subtract(timecodeToSubstract).subtract(timecodeToSubstract);
 	}
 
 	@Test
@@ -139,7 +139,7 @@ public class Df30TimecodeTest {
 		Timecode timecodeToSubstract = TimecodeFactory.createTimeCode(FrameRateType.DF30, 5, 5, 15, 20);
 		Timecode expectedTimecode = TimecodeFactory.createTimeCode(FrameRateType.DF30, 0, 0, 0, 0);
 
-		actualTimecode.substract(timecodeToSubstract);
+		actualTimecode.subtract(timecodeToSubstract);
 
 		assertEquals(expectedTimecode.getFrames(), actualTimecode.getFrames());
 		assertEquals(expectedTimecode.getSeconds(), actualTimecode.getSeconds());
@@ -154,7 +154,7 @@ public class Df30TimecodeTest {
 		Timecode actualTimecode = TimecodeFactory.createTimeCode(FrameRateType.DF30, 10, 5, 15, 14);
 		Timecode timecodeToSubstract = TimecodeFactory.createTimeCode(FrameRateType.FPS25, 0, 0, 0, 0);
 
-		actualTimecode.substract(timecodeToSubstract);
+		actualTimecode.subtract(timecodeToSubstract);
 	}
 
 	@Test
@@ -163,7 +163,7 @@ public class Df30TimecodeTest {
 		Timecode timecodeToSubstract = TimecodeFactory.createTimeCode(FrameRateType.DF30, 0, 0, 0, 0);
 		Timecode expectedTimecode = TimecodeFactory.createTimeCode(FrameRateType.DF30, 10, 5, 15, 14);
 
-		actualTimecode.substract(timecodeToSubstract);
+		actualTimecode.subtract(timecodeToSubstract);
 
 		assertEquals(expectedTimecode.getFrames(), actualTimecode.getFrames());
 		assertEquals(expectedTimecode.getSeconds(), actualTimecode.getSeconds());
@@ -179,7 +179,7 @@ public class Df30TimecodeTest {
 		Timecode timecodeToSubstract = TimecodeFactory.createTimeCode(FrameRateType.DF30, 2, 14, 21, 10);
 		Timecode expectedTimecode = TimecodeFactory.createTimeCode(FrameRateType.DF30, 7, 50, 54, 2);
 
-		actualTimecode.substract(timecodeToSubstract);
+		actualTimecode.subtract(timecodeToSubstract);
 
 		assertEquals(expectedTimecode.getFrames(), actualTimecode.getFrames());
 		assertEquals(expectedTimecode.getSeconds(), actualTimecode.getSeconds());

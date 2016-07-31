@@ -35,36 +35,36 @@ public enum FrameRateType {
 		this.shortName = shortName;
 	}
 
+	public static FrameRateType fromString(String string) throws TimecodeException {
+		FrameRateType frameRateType = null;
+
+		if ("24fps".equalsIgnoreCase(string))
+			frameRateType = FPS24;
+		else if ("25fps".equalsIgnoreCase(string))
+			frameRateType = FPS25;
+		else if ("30fps".equalsIgnoreCase(string))
+			frameRateType = FPS30;
+		else if ("30DF".endsWith(string))
+			frameRateType = DF30;
+
+		if (frameRateType == null)
+			throw new TimecodeException("Invalid frame rate format: " + string);
+
+		return frameRateType;
+	}
+
 	public boolean areValidValues(int hours, int minutes, int seconds, int frames) {
 		boolean validHours = hours >= 0 && hours < 24;
 		boolean validMinutes = minutes >= 0 && minutes < 60;
 		boolean validSeconds = seconds >= 0 && seconds < 60;
 		boolean validFrames = false;
-		if(equals(FPS24))
+		if (equals(FPS24))
 			validFrames = frames >= 0 && frames < 24;
-		else if(equals(FPS25))
+		else if (equals(FPS25))
 			validFrames = frames >= 0 && frames < 25;
-		else if(equals(FPS30) || equals(DF30))
+		else if (equals(FPS30) || equals(DF30))
 			validFrames = frames >= 0 && frames < 30;
 		return validHours && validMinutes && validSeconds && validFrames;
-	}
-
-	public static FrameRateType fromString(String string) throws TimecodeException {
-		FrameRateType frameRateType = null;
-
-		if("24fps".equalsIgnoreCase(string))
-			frameRateType = FPS24;
-		else if("25fps".equalsIgnoreCase(string))
-			frameRateType = FPS25;
-		else if("30fps".equalsIgnoreCase(string))
-			frameRateType = FPS30;
-		else if("30DF".endsWith(string))
-			frameRateType = DF30;
-
-		if(frameRateType == null)
-			throw new TimecodeException("Invalid frame rate format: " + string);
-
-		return frameRateType;
 	}
 
 	@Override

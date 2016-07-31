@@ -1,15 +1,51 @@
 package com.transgressoft.timecode;
 
-import org.junit.Test;
+import com.transgressoft.timecode.fps25.*;
+import org.junit.*;
+
+import static junit.framework.TestCase.*;
 
 /**
  * Unit tests for {@link TimecodeString} class. It also coverages code lines of
- * {@link TimecodeFactory} and its subclasses, {@link FrameRateType} and {@link TimecodeInputType}.
+ * {@link TimecodeFactory} and its subclasses, {@link FrameRateType},
+ * {@link TimecodeInputType} and {@link TimecodeBase}.
  *
  * @author Octavio Calleya
  * @version 0.1
  */
 public class TimecodeStringTests {
+
+	@Test
+	public void testValidValues24FpsFrameRateType() {
+		assertTrue(FrameRateType.FPS24.areValidValues(0, 0, 0, 0));
+	}
+
+	@Test
+	public void testTwoTimecodesEqualHashCode() {
+		TimecodeBase timecodeBaseOne = Fps25Timecode.of(50);
+		TimecodeBase timecodeBaseTwo = Fps25Timecode.of(50);
+		assertTrue(timecodeBaseOne.hashCode() == timecodeBaseTwo.hashCode());
+	}
+
+	@Test
+	public void testTwoTimecodesNotEqual() {
+		TimecodeBase timecodeBaseOne = Fps25Timecode.of(50);
+		TimecodeBase timecodeBaseTwo = Fps25Timecode.of(25);
+		assertTrue(!timecodeBaseOne.equals(timecodeBaseTwo));
+	}
+
+	@Test
+	public void testTimecodeExceptionConstructors() {
+		TimecodeException timecodeException = new TimecodeException();
+		assertTrue(timecodeException.getMessage() == null);
+
+		timecodeException = new TimecodeException(new Throwable());
+		assertTrue(timecodeException.getCause() != null);
+
+		timecodeException = new TimecodeException("Message", new Throwable());
+		assertTrue(timecodeException.getMessage().equals("Message"));
+		assertTrue(timecodeException.getCause() != null);
+	}
 
 	@Test(expected = TimecodeException.class)
 	public void testInvalidFrameRateType() throws Exception {

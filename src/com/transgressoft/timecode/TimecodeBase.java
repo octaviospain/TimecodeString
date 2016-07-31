@@ -59,46 +59,6 @@ public abstract class TimecodeBase implements Timecode {
 	public abstract int getFrameCountLimit();
 
 	@Override
-	public int getHours() {
-		return hours;
-	}
-
-	@Override
-	public int getMinutes() {
-		return minutes;
-	}
-
-	@Override
-	public int getSeconds() {
-		return seconds;
-	}
-
-	@Override
-	public int getFrames() {
-		return frames;
-	}
-
-	@Override
-	public int getFrameCount() {
-		return frameCount;
-	}
-
-	@Override
-	public String getStringRepresentation() {
-		String timecodeStringRepresentation = "";
-		timecodeStringRepresentation += String.format("%02d", hours) + ":";
-		timecodeStringRepresentation += String.format("%02d", minutes) + ":";
-		timecodeStringRepresentation += String.format("%02d", seconds) + ":";
-		timecodeStringRepresentation += String.format("%02d", frames);
-		return timecodeStringRepresentation;
-	}
-
-	@Override
-	public String toString() {
-		return "Timecode[" + getStringRepresentation() + "/" + frameCount + "]";
-	}
-
-	@Override
 	public int hashCode() {
 		int hash = 23;
 		hash = 71 * hash + frames;
@@ -112,15 +72,52 @@ public abstract class TimecodeBase implements Timecode {
 	@Override
 	public boolean equals(Object obj) {
 		boolean result;
-		if(obj instanceof TimecodeBase &&
+		if (obj instanceof TimecodeBase &&
 				((TimecodeBase) obj).getFrames() == frames &&
 				((TimecodeBase) obj).getSeconds() == seconds &&
 				((TimecodeBase) obj).getMinutes() == minutes &&
 				((TimecodeBase) obj).getHours() == hours &&
-				((TimecodeBase) obj).getFrameCount() == frameCount)
+				((TimecodeBase) obj).getFrameCount() == frameCount) {
 			result = true;
-		else
+		}
+		else {
 			result = false;
+		}
 		return result;
+	}
+
+	@Override
+	public int getFrames() {
+		return frames;
+	}
+
+	@Override
+	public int getSeconds() {
+		return seconds;
+	}
+
+	@Override
+	public int getMinutes() {
+		return minutes;
+	}
+
+	@Override
+	public int getHours() {
+		return hours;
+	}
+
+	@Override
+	public String toString() {
+		return "Timecode[" + getStringRepresentation() + "/" + frameCount + "]";
+	}
+
+	@Override
+	public String getStringRepresentation() {
+		String timecodeStringRepresentation = "";
+		timecodeStringRepresentation += String.format("%02d", hours) + ":";
+		timecodeStringRepresentation += String.format("%02d", minutes) + ":";
+		timecodeStringRepresentation += String.format("%02d", seconds) + ":";
+		timecodeStringRepresentation += String.format("%02d", frames);
+		return timecodeStringRepresentation;
 	}
 }

@@ -25,21 +25,22 @@ import java.util.*;
  * Sample class to run the TimecodeString library by command line.
  * Uses {@link Docopt} library to parse command line arguments.
  *
- * @see <a href="http://docopt.org">docopt.org</a>
- * @see <a href="https://github.com/docopt/docopt.java">docopt for Java</a>
- *
  * @author Octavio Calleya
  * @version 0.1
+ * @see <a href="http://docopt.org">docopt.org</a>
+ * @see <a href="https://github.com/docopt/docopt.java">docopt for Java</a>
  */
 public class TimecodeStringRunner {
 
-	/***************************		Command line usage		***************************/
+	/***************************
+	 * Command line usage
+	 ***************************/
 
-	private static final String DOC = "Timecode String.\n\n"+
+	private static final String DOC = "Timecode String.\n\n" +
 			"Usage:\n" +
 			"  TimecodeString <frame_rate> <value>\n" +
 			"  TimecodeString <input_file> [-o <output_file>]\n\n" +
-			"Options:\n"+
+			"Options:\n" +
 			"  -o = <output_file> specify output file [default: output.txt]\n";
 
 	private static String frameRate;
@@ -54,30 +55,31 @@ public class TimecodeStringRunner {
 		value = (String) options.get("<value>");
 		inputFilePath = (String) options.get("<input_file>");
 		outputFilePath = (String) options.get("-o");
-		if(outputFilePath == null)
+		if (outputFilePath == null)
 			outputFilePath = "output.txt";
 
 		try {
 			if (frameRate != null && value != null) {
-				if(!outputFilePath.equals("output.txt"))
+				if (! outputFilePath.equals("output.txt"))
 					System.err.println(DOC);
 				else
 					System.out.println(TimecodeString.of(frameRate, value).getOppositeRepresentation());
 			}
-			else if(inputFilePath != null) {
+			else if (inputFilePath != null) {
 				readTimecodesFromFile();
 				writeTimecodesToFile();
 			}
-		} catch (Exception e) {
-			System.err.println("Error: " + e.getMessage());
+		}
+		catch (Exception exception) {
+			System.err.println("Error: " + exception.getMessage());
 		}
 	}
 
 	private static void readTimecodesFromFile() throws Exception {
 		File inputFile = new File(inputFilePath);
-		if(!inputFile.exists())
+		if (! inputFile.exists())
 			throw new IllegalArgumentException("Input file doesn't exist");
-		if(inputFile.isDirectory())
+		if (inputFile.isDirectory())
 			throw new IllegalArgumentException("Input file can't be a directory");
 
 		timecodes = new ArrayList<>();
@@ -85,9 +87,9 @@ public class TimecodeStringRunner {
 		String frameRate;
 		String value;
 
-		while(scanner.hasNextLine()) {
+		while (scanner.hasNextLine()) {
 			StringTokenizer stk = new StringTokenizer(scanner.nextLine(), " ");
-			if(stk.countTokens() != 2) {
+			if (stk.countTokens() != 2) {
 				scanner.close();
 				throw new IllegalArgumentException("Invalid line arguments. Should be <frame_rate> <value>");
 			}
@@ -103,9 +105,9 @@ public class TimecodeStringRunner {
 		File outputFile = new File(outputFilePath);
 
 		PrintWriter printWriter = new PrintWriter(new FileOutputStream(outputFile));
-		for(TimecodeString timecodeString: timecodes)
+		for (TimecodeString timecodeString : timecodes)
 			printWriter.println(timecodeString.getOppositeRepresentation());
 		printWriter.close();
-		System.out.println("Timecode string conversion succesfully dumped to " + outputFile.getAbsolutePath());
+		System.out.println("Timecode string conversion successfully dumped to " + outputFile.getAbsolutePath());
 	}
 }

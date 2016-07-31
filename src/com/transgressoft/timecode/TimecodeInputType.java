@@ -47,13 +47,12 @@ public enum TimecodeInputType {
 	public static TimecodeInputType fromString(String string) throws TimecodeException {
 		TimecodeInputType timecodeInputType = null;
 
-		if(string.matches("\\d{2}:\\d{2}:\\d{2}[;:]\\d{2}"))
+		if (string.matches("\\d{2}:\\d{2}:\\d{2}[;:]\\d{2}"))
 			timecodeInputType = UNITS_INPUT_TYPE;
-		else if(string.matches("\\d+")){
+		else if (string.matches("\\d+"))
 			timecodeInputType = FRAME_COUNT_INPUT_TYPE;
-		}
 
-		if(timecodeInputType == null)
+		if (timecodeInputType == null)
 			throw new TimecodeException("Invalid input format. Should be <frameCount> or hh:mm:ss:ff");
 
 		return timecodeInputType;

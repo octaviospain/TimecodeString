@@ -19,10 +19,9 @@ package com.transgressoft.timecode;
 /**
  * Interface for Timecodes.
  *
- * @see <a href="https://en.wikipedia.org/wiki/SMPTE_timecode">SMPTE Timecode</a>
- *
  * @author Octavio Calleya
  * @version 0.1
+ * @see <a href="https://en.wikipedia.org/wiki/SMPTE_timecode">SMPTE Timecode</a>
  */
 public interface Timecode {
 
@@ -34,23 +33,23 @@ public interface Timecode {
 	 * @return The object itself once the operation has been performed on it
 	 *
 	 * @throws TimecodeException If the given <tt>Timecode</tt> object is not of
-	 * 							 the same type of the actual object, or the result of the
-	 * 							 operation resulted in a value greater than the admitted
+	 *                           the same type of the actual object, or the result of the
+	 *                           operation resulted in a value greater than the admitted
 	 */
 	Timecode add(Timecode timecode) throws TimecodeException;
 
 	/**
-	 * Substracts the given <tt>timecode</tt> value to the value of the actual {@link Timecode}
+	 * Subtracts the given <tt>timecode</tt> value to the value of the actual {@link Timecode}
 	 *
-	 * @param timecode The timecode to substract
+	 * @param timecode The timecode to subtract
 	 *
 	 * @return The object itself once the operation has been performed on it
 	 *
 	 * @throws TimecodeException If the given <tt>Timecode</tt> object is not of
-	 * 							 the same type of the actual object, or the result of the
-	 * 							 operation resulted in a value lesser than the admitted
+	 *                           the same type of the actual object, or the result of the
+	 *                           operation resulted in a value lesser than the admitted
 	 */
-	Timecode substract(Timecode timecode) throws TimecodeException;
+	Timecode subtract(Timecode timecode) throws TimecodeException;
 
 	int getHours();
 

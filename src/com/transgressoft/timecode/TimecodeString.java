@@ -41,44 +41,11 @@ public class TimecodeString {
 	}
 
 	/**
-	 * Constructs a {@link TimecodeString} object given a frame rate expressed as <tt>String</tt>
-	 * and the number of frames
-	 *
-	 * @param frameRateString The frame rate
-	 * @param frameCount The number of frames
-	 *
-	 * @return a <tt>TimecodeString</tt> object
-	 */
-	public static TimecodeString of(String frameRateString, int frameCount) throws TimecodeException {
-		FrameRateType frameRateType = FrameRateType.fromString(frameRateString);
-		Timecode givenTimecode = TimecodeFactory.createTimeCode(frameRateType, frameCount);
-		return new TimecodeString(givenTimecode, TimecodeInputType.FRAME_COUNT_INPUT_TYPE);
-	}
-
-	/**
-	 * Constructs a {@link TimecodeString} object given a frame rate expressed as <tt>String</tt>,
-	 * the number of days, hours, minutes, seconds, and frames;
-	 *
-	 * @param frameRateString The frame rate
-	 * @param hh The number of hours
-	 * @param mm The number of minutes
-	 * @param ss The number of seconds
-	 * @param ff The number of frames
-	 *
-	 * @return a <tt>TimecodeString</tt> object
-	 */
-	public static TimecodeString of(String frameRateString, int hh, int mm, int ss, int ff) throws TimecodeException {
-		FrameRateType frameRateType = FrameRateType.fromString(frameRateString);
-		Timecode givenTimecode = TimecodeFactory.createTimeCode(frameRateType, hh, mm, ss, ff);
-		return new TimecodeString(givenTimecode, TimecodeInputType.UNITS_INPUT_TYPE);
-	}
-
-	/**
 	 * Constructs a {@link TimecodeString} object given the frame rate and the value,
 	 * both represented as <tt>String</tt> objects
 	 *
 	 * @param frameRateString The frame rate
-	 * @param value The value of the timecode
+	 * @param value           The value of the timecode
 	 *
 	 * @return a <tt>TimecodeString</tt> object
 	 *
@@ -89,16 +56,31 @@ public class TimecodeString {
 
 		TimecodeString timecodeString = null;
 
-		if(timecodeInputType.equals(TimecodeInputType.FRAME_COUNT_INPUT_TYPE)) {
+		if (timecodeInputType.equals(TimecodeInputType.FRAME_COUNT_INPUT_TYPE)) {
 			frameCount = Integer.valueOf(value);
 			timecodeString = of(frameRateString, frameCount);
 		}
-		else if(timecodeInputType.equals(TimecodeInputType.UNITS_INPUT_TYPE)) {
+		else if (timecodeInputType.equals(TimecodeInputType.UNITS_INPUT_TYPE)) {
 			parseInputByUnits(value);
 			timecodeString = of(frameRateString, hours, minutes, seconds, frames);
 		}
 		clearStaticValues();
 		return timecodeString;
+	}
+
+	/**
+	 * Constructs a {@link TimecodeString} object given a frame rate expressed as <tt>String</tt>
+	 * and the number of frames
+	 *
+	 * @param frameRateString The frame rate
+	 * @param frameCount      The number of frames
+	 *
+	 * @return a <tt>TimecodeString</tt> object
+	 */
+	public static TimecodeString of(String frameRateString, int frameCount) throws TimecodeException {
+		FrameRateType frameRateType = FrameRateType.fromString(frameRateString);
+		Timecode givenTimecode = TimecodeFactory.createTimeCode(frameRateType, frameCount);
+		return new TimecodeString(givenTimecode, TimecodeInputType.FRAME_COUNT_INPUT_TYPE);
 	}
 
 	private static void parseInputByUnits(String input) {
@@ -107,6 +89,24 @@ public class TimecodeString {
 		minutes = Integer.valueOf(stringTokenizer.nextToken());
 		seconds = Integer.valueOf(stringTokenizer.nextToken());
 		frames = Integer.valueOf(stringTokenizer.nextToken());
+	}
+
+	/**
+	 * Constructs a {@link TimecodeString} object given a frame rate expressed as <tt>String</tt>,
+	 * the number of days, hours, minutes, seconds, and frames;
+	 *
+	 * @param frameRateString The frame rate
+	 * @param hh              The number of hours
+	 * @param mm              The number of minutes
+	 * @param ss              The number of seconds
+	 * @param ff              The number of frames
+	 *
+	 * @return a <tt>TimecodeString</tt> object
+	 */
+	public static TimecodeString of(String frameRateString, int hh, int mm, int ss, int ff) throws TimecodeException {
+		FrameRateType frameRateType = FrameRateType.fromString(frameRateString);
+		Timecode givenTimecode = TimecodeFactory.createTimeCode(frameRateType, hh, mm, ss, ff);
+		return new TimecodeString(givenTimecode, TimecodeInputType.UNITS_INPUT_TYPE);
 	}
 
 	private static void clearStaticValues() {
@@ -119,9 +119,9 @@ public class TimecodeString {
 
 	public String getOppositeRepresentation() {
 		String timeCodeRepresentation = null;
-		if(inputType.equals(TimecodeInputType.UNITS_INPUT_TYPE))
+		if (inputType.equals(TimecodeInputType.UNITS_INPUT_TYPE))
 			timeCodeRepresentation = Long.toString(timecode.getFrameCount());
-		else if(inputType.equals(TimecodeInputType.FRAME_COUNT_INPUT_TYPE))
+		else if (inputType.equals(TimecodeInputType.FRAME_COUNT_INPUT_TYPE))
 			timeCodeRepresentation = timecode.getStringRepresentation();
 		return timeCodeRepresentation;
 	}

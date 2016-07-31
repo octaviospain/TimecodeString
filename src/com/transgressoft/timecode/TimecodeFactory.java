@@ -35,21 +35,16 @@ public abstract class TimecodeFactory {
 		return timecodeFactory.createTimeCode(hours, minutes, seconds, frames);
 	}
 
-	public static Timecode createTimeCode(FrameRateType type, int numberOfFrames) {
-		TimecodeFactory timecodeFactory = chooseFactory(type);
-		return timecodeFactory.createTimeCode(numberOfFrames);
-	}
-
 	private static TimecodeFactory chooseFactory(FrameRateType type) {
 		TimecodeFactory timecodeFactory = null;
-		switch(type) {
+		switch (type) {
 			case FPS24:
-				throw new UnsupportedOperationException("24fps frame rate is not supported yet");	// TODO Implement
+				throw new UnsupportedOperationException("24fps frame rate is not supported yet");    // TODO Implement
 			case FPS25:
 				timecodeFactory = fps25TimecodeFactory;
 				break;
 			case FPS30:
-				throw new UnsupportedOperationException("30fps frame rate is not supported yet");	// TODO implement
+				throw new UnsupportedOperationException("30fps frame rate is not supported yet");    // TODO implement
 			case DF30:
 				timecodeFactory = df30TimecodeFactory;
 				break;
@@ -58,6 +53,11 @@ public abstract class TimecodeFactory {
 	}
 
 	public abstract Timecode createTimeCode(int hours, int minutes, int seconds, int frames);
+
+	public static Timecode createTimeCode(FrameRateType type, int numberOfFrames) {
+		TimecodeFactory timecodeFactory = chooseFactory(type);
+		return timecodeFactory.createTimeCode(numberOfFrames);
+	}
 
 	public abstract Timecode createTimeCode(int frameCount);
 }

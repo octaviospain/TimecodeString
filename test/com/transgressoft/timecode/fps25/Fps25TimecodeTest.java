@@ -14,9 +14,9 @@ import static org.junit.Assert.assertEquals;
 public class Fps25TimecodeTest {
 
 	@Test
-	public void testFps25TimecodeSubstractionUnderZero() throws Exception {
+	public void testFps25TimecodeSubtractionUnderZero() throws Exception {
 		Timecode actualTimecode = TimecodeFactory.createTimeCode(FrameRateType.FPS25, 5, 5, 15, 20);
-		Timecode timecodeToSubstract = TimecodeFactory.createTimeCode(FrameRateType.FPS25, 6, 1, 5, 23);
+		Timecode timecodeToSubtract = TimecodeFactory.createTimeCode(FrameRateType.FPS25, 6, 1, 5, 23);
 
 		int expectedHours = -1;
 		int expectedMinutes = 4;
@@ -30,7 +30,7 @@ public class Fps25TimecodeTest {
 		expectedStringRepresentation += String.format("%02d", expectedFrames);
 		String expectedToString = "Timecode[" + expectedStringRepresentation + "/" + expectedFrameCount + "]";
 
-		actualTimecode.substract(timecodeToSubstract);
+		actualTimecode.subtract(timecodeToSubtract);
 
 		assertEquals(expectedFrames, actualTimecode.getFrames());
 		assertEquals(expectedSeconds, actualTimecode.getSeconds());
@@ -42,20 +42,20 @@ public class Fps25TimecodeTest {
 	}
 
 	@Test(expected = TimecodeException.class)
-	public void testFps25TimecodeSubstractionUnderflow() throws Exception {
+	public void testFps25TimecodeSubtractionUnderflow() throws Exception {
 		Timecode actualTimecode = TimecodeFactory.createTimeCode(FrameRateType.FPS25, 5, 5, 15, 20);
-		Timecode timecodeToSubstract = TimecodeFactory.createTimeCode(FrameRateType.FPS25, 23, 59, 59, 24);
+		Timecode timecodeToSubtract = TimecodeFactory.createTimeCode(FrameRateType.FPS25, 23, 59, 59, 24);
 
-		actualTimecode.substract(timecodeToSubstract).substract(timecodeToSubstract);
+		actualTimecode.subtract(timecodeToSubtract).subtract(timecodeToSubtract);
 	}
 
 	@Test
-	public void testFps25TimecodeSubstractionResultZero() throws Exception {
+	public void testFps25TimecodeSubtractionResultZero() throws Exception {
 		Timecode actualTimecode = TimecodeFactory.createTimeCode(FrameRateType.FPS25, 5, 5, 15, 20);
-		Timecode timecodeToSubstract = TimecodeFactory.createTimeCode(FrameRateType.FPS25, 5, 5, 15, 20);
+		Timecode timecodeToSubtract = TimecodeFactory.createTimeCode(FrameRateType.FPS25, 5, 5, 15, 20);
 		Timecode expectedTimecode = TimecodeFactory.createTimeCode(FrameRateType.FPS25, 0, 0, 0, 0);
 
-		actualTimecode.substract(timecodeToSubstract);
+		actualTimecode.subtract(timecodeToSubtract);
 
 		assertEquals(expectedTimecode.getFrames(), actualTimecode.getFrames());
 		assertEquals(expectedTimecode.getSeconds(), actualTimecode.getSeconds());
@@ -66,20 +66,20 @@ public class Fps25TimecodeTest {
 	}
 
 	@Test(expected = TimecodeException.class)
-	public void testFps25TimecodeSubstractionInvalid() throws Exception {
+	public void testFps25TimecodeSubtractionInvalid() throws Exception {
 		Timecode actualTimecode = TimecodeFactory.createTimeCode(FrameRateType.FPS25, 10, 5, 15, 14);
-		Timecode timecodeToSubstract = TimecodeFactory.createTimeCode(FrameRateType.DF30, 0, 0, 0, 0);
+		Timecode timecodeToSubtract = TimecodeFactory.createTimeCode(FrameRateType.DF30, 0, 0, 0, 0);
 
-		actualTimecode.substract(timecodeToSubstract);
+		actualTimecode.subtract(timecodeToSubtract);
 	}
 
 	@Test
-	public void testFps25TimecodeSubstractionOfZero() throws Exception {
+	public void testFps25TimecodeSubtractionOfZero() throws Exception {
 		Timecode actualTimecode = TimecodeFactory.createTimeCode(FrameRateType.FPS25, 10, 5, 15, 14);
-		Timecode timecodeToSubstract = TimecodeFactory.createTimeCode(FrameRateType.FPS25, 0, 0, 0, 0);
+		Timecode timecodeToSubtract = TimecodeFactory.createTimeCode(FrameRateType.FPS25, 0, 0, 0, 0);
 		Timecode expectedTimecode = TimecodeFactory.createTimeCode(FrameRateType.FPS25, 10, 5, 15, 14);
 
-		actualTimecode.substract(timecodeToSubstract);
+		actualTimecode.subtract(timecodeToSubtract);
 
 		assertEquals(expectedTimecode.getFrames(), actualTimecode.getFrames());
 		assertEquals(expectedTimecode.getSeconds(), actualTimecode.getSeconds());
@@ -90,12 +90,12 @@ public class Fps25TimecodeTest {
 	}
 
 	@Test
-	public void testFps25TimecodeSubstraction() throws Exception {
+	public void testFps25TimecodeSubtraction() throws Exception {
 		Timecode actualTimecode = TimecodeFactory.createTimeCode(FrameRateType.FPS25, 10, 5, 15, 14);
-		Timecode timecodeToSubstract = TimecodeFactory.createTimeCode(FrameRateType.FPS25, 5, 3, 4, 10);
+		Timecode timecodeToSubtract = TimecodeFactory.createTimeCode(FrameRateType.FPS25, 5, 3, 4, 10);
 		Timecode expectedTimecode = TimecodeFactory.createTimeCode(FrameRateType.FPS25, 5, 2, 11, 4);
 
-		actualTimecode.substract(timecodeToSubstract);
+		actualTimecode.subtract(timecodeToSubtract);
 
 		assertEquals(expectedTimecode.getFrames(), actualTimecode.getFrames());
 		assertEquals(expectedTimecode.getSeconds(), actualTimecode.getSeconds());
