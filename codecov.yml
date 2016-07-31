@@ -4,6 +4,9 @@ codecov:
 coverage:
   precision: 2
   round: up
-  
+  range: "80...100"  
+
   ignore: 
     - "src/org/docopt/*"
+    - "src/com/transgressoft/timecode/TimecodeStringRunner.java"
+    - "src/com/transgressof/timecode/TimecodeException.java"
