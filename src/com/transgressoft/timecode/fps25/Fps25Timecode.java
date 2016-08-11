@@ -73,7 +73,7 @@ public class Fps25Timecode extends TimecodeBase {
 	@Override
 	public Timecode add(Timecode timecode) throws TimecodeException {
 		if (! (timecode instanceof Fps25Timecode))
-			throw new TimecodeException("Sum operation is only valid between instances of the same Timecode class");
+			throw new TimecodeException("Addition operation is only valid between instances of the same Timecode class");
 
 		frameCount += timecode.getFrameCount();
 		countUnits(frameCount);

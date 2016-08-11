@@ -84,7 +84,7 @@ public class Df30Timecode extends TimecodeBase {
 	@Override
 	public Timecode add(Timecode timecode) throws TimecodeException {
 		if (! (timecode instanceof Df30Timecode))
-			throw new TimecodeException("Sum operation is only valid between instances of the same Timecode class");
+			throw new TimecodeException("Addition operation is only valid between instances of the same Timecode class");
 
 		frameCount += timecode.getFrameCount();
 		reverseDropFrameCalculation(frameCount);
@@ -98,7 +98,7 @@ public class Df30Timecode extends TimecodeBase {
 	@Override
 	public Timecode subtract(Timecode timecode) throws TimecodeException {
 		if (! (timecode instanceof Df30Timecode))
-			throw new TimecodeException("Substract operation is only valid between instances of the same Timecode class");
+			throw new TimecodeException("Subtract operation is only valid between instances of the same Timecode class");
 
 		frameCount -= timecode.getFrameCount();
 		if (frameCount >= 0)
@@ -111,7 +111,7 @@ public class Df30Timecode extends TimecodeBase {
 		}
 
 		if (Math.abs(frameCount) >= FRAME_COUNT_LIMIT)
-			throw new TimecodeException("Result value is lesser than " + "limit");
+			throw new TimecodeException("Result value is lesser than limit");
 
 		return this;
 	}
