@@ -18,6 +18,8 @@ package com.transgressoft.timecode.df30;
 
 import com.transgressoft.timecode.*;
 
+import static com.transgressoft.timecode.TimecodeException.ErrorCase.*;
+
 /**
  * Class that represents a {@link Timecode} implementation of
  * a Drop-Frame 30 (29.97 fps) video timecode.
@@ -33,13 +35,11 @@ public class Df30Timecode extends TimecodeBase {
 	 * of the Timecode can be 23:59:59:28
 	 */
 	private static final int FRAME_COUNT_LIMIT = 2589407;
+	private static final int FRAME_MAX = 30;
 
 	private Df30Timecode(int hours, int minutes, int seconds, int frames) {
-		super(hours, minutes, seconds, frames);
-		frameCount += frames;
-		frameCount += seconds * 30;
-		frameCount += minutes * 1800;
-		frameCount += hours * 108000;
+		super(hours, minutes, seconds, frames);countFrames(hours, minutes, seconds, frames);countFrames(hours, minutes, seconds, frames);
+		countFrames(hours, minutes, seconds, frames);
 		frameDropCalculation();
 	}
 
@@ -51,10 +51,12 @@ public class Df30Timecode extends TimecodeBase {
 
 	private Df30Timecode(int frameCount) {
 		super(frameCount);
-		reverseDropFrameCalculation(frameCount);
+		countUnits(frameCount);
 	}
 
-	private void reverseDropFrameCalculation(int numberOfFrames) {
+	@Override
+	protected void countUnits(int numberOfFrames) {
+		// reverse drop frame calculation
 		int totalFrames = numberOfFrames;
 
 		int division = totalFrames / 17982;
@@ -69,52 +71,50 @@ public class Df30Timecode extends TimecodeBase {
 
 	public static Df30Timecode of(int hours, int minutes, int seconds, int frames) {
 		if (! FrameRateType.DF30.areValidValues(hours, minutes, seconds, frames))
-			throw new IllegalArgumentException("Invalid timecode value");
+			throw new IllegalArgumentException(INVALID_TIMECODE.getErrorMessage());
 		return new Df30Timecode(hours, minutes, seconds, frames);
 	}
 
 	public static Df30Timecode of(int frameCount) {
 		if (frameCount < 0)
-			throw new IllegalArgumentException("Frame count must be greater than zero");
+			throw new IllegalArgumentException(FRAME_COUNT_LESS_0.getErrorMessage());
 		if (frameCount >= FRAME_COUNT_LIMIT)
-			throw new IllegalArgumentException("Frame count is greater than " + FRAME_COUNT_LIMIT);
+			throw new IllegalArgumentException(FRAME_COUNT_GREATER_LIMIT.getErrorMessage() + " " + FRAME_COUNT_LIMIT);
 		return new Df30Timecode(frameCount);
 	}
 
 	@Override
 	public Timecode add(Timecode timecode) throws TimecodeException {
 		if (! (timecode instanceof Df30Timecode))
-			throw new TimecodeException("Addition operation is only valid between instances of the same Timecode class");
-
-		frameCount += timecode.getFrameCount();
-		reverseDropFrameCalculation(frameCount);
-
-		if (frameCount >= FRAME_COUNT_LIMIT)
-			throw new TimecodeException("Result is greater than limit");
-
+			throw new TimecodeException(INVALID_ADDITION);
+        addition(timecode);
 		return this;
 	}
 
 	@Override
 	public Timecode subtract(Timecode timecode) throws TimecodeException {
 		if (! (timecode instanceof Df30Timecode))
-			throw new TimecodeException("Subtract operation is only valid between instances of the same Timecode class");
-
-		frameCount -= timecode.getFrameCount();
-		if (frameCount > 0)
-			reverseDropFrameCalculation(frameCount);
-		else {
-			int oldHours = hours;
-			reverseDropFrameCalculation(FRAME_COUNT_LIMIT + frameCount);    // positive number of frames
-			frameAdditionCalculation();
-			hours = oldHours - timecode.getHours();
-		}
-
-		if (Math.abs(frameCount) >= FRAME_COUNT_LIMIT)
-			throw new TimecodeException("Result value is lesser than limit");
-
+			throw new TimecodeException(INVALID_SUBTRACTION);
+        subtraction(timecode);
 		return this;
 	}
+
+	@Override
+    protected void subtraction(Timecode timecode) throws TimecodeException {
+        frameCount -= timecode.getFrameCount();
+        if (frameCount > 0)
+            countUnits(frameCount);
+        else {
+            int oldHours = hours;
+            countUnits(FRAME_COUNT_LIMIT + frameCount);    // positive number of frames
+            frameAdditionCalculation();
+            hours = oldHours - timecode.getHours();
+        }
+
+        if (Math.abs(frameCount) >= FRAME_COUNT_LIMIT)
+            throw new TimecodeException(RESULT_LESSER_LIMIT);
+
+    }
 
 	private void frameAdditionCalculation() {
 		if (minutes % 10 == 0 && seconds != 0 && (frames == 29 || frames == 30))
@@ -152,5 +152,10 @@ public class Df30Timecode extends TimecodeBase {
 	@Override
 	public int getFrameCountLimit() {
 		return FRAME_COUNT_LIMIT;
+	}
+
+	@Override
+	protected int getFrameMax() {
+		return FRAME_MAX;
 	}
 }

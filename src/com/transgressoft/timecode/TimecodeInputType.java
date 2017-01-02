@@ -16,6 +16,8 @@
 
 package com.transgressoft.timecode;
 
+import static com.transgressoft.timecode.TimecodeException.ErrorCase.INVALID_INPUT_FORMAT;
+
 /**
  * Enumeration of different type of input formats of the value of a timecode.
  *
@@ -53,7 +55,7 @@ public enum TimecodeInputType {
 			timecodeInputType = FRAME_COUNT_INPUT_TYPE;
 
 		if (timecodeInputType == null)
-			throw new TimecodeException("Invalid input format. Should be <frameCount> or hh:mm:ss:ff");
+			throw new TimecodeException(INVALID_INPUT_FORMAT);
 
 		return timecodeInputType;
 	}

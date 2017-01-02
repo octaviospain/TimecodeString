@@ -16,6 +16,8 @@
 
 package com.transgressoft.timecode;
 
+import static com.transgressoft.timecode.TimecodeException.ErrorCase.INVALID_FRAME_RATE;
+
 /**
  * Enumeration of frame rate types with operations to parse the frame
  * rate given a string, and check if his value is valid.
@@ -48,7 +50,7 @@ public enum FrameRateType {
 			frameRateType = DF30;
 
 		if (frameRateType == null)
-			throw new TimecodeException("Invalid frame rate format: " + string);
+			throw new TimecodeException(INVALID_FRAME_RATE);
 
 		return frameRateType;
 	}

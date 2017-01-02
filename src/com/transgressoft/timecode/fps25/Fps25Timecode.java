@@ -15,6 +15,8 @@ package com.transgressoft.timecode.fps25;
 
 import com.transgressoft.timecode.*;
 
+import static com.transgressoft.timecode.TimecodeException.ErrorCase.*;
+
 /**
  * Class that represents a {@link Timecode} implementation of
  * a 25 fps video timecode.
@@ -32,13 +34,11 @@ public class Fps25Timecode extends TimecodeBase {
 	 * <p>24 * 60 * 60 * 25 = 2 160 000</p>
 	 */
 	private static final int FRAME_COUNT_LIMIT = 2160000;
+	private static final int FRAME_MAX = 25;
 
 	private Fps25Timecode(int hours, int minutes, int seconds, int frames) {
 		super(hours, minutes, seconds, frames);
-		frameCount += frames;
-		frameCount += seconds * 25;
-		frameCount += minutes * 60 * 25;
-		frameCount += hours * 60 * 60 * 25;
+		countFrames(hours, minutes, seconds, frames);
 	}
 
 	private Fps25Timecode(int frameCount) {
@@ -46,66 +46,43 @@ public class Fps25Timecode extends TimecodeBase {
 		countUnits(frameCount);
 	}
 
-	private void countUnits(int numberOfFrames) {
-		int totalFrames = numberOfFrames;
-		hours = totalFrames / 90000;
-		totalFrames -= hours * 90000;
-		minutes = totalFrames / 1500;
-		totalFrames -= minutes * 1500;
-		seconds = totalFrames / 25;
-		frames = totalFrames % 25;
-	}
-
 	public static Fps25Timecode of(int hours, int minutes, int seconds, int frames) {
 		if (! FrameRateType.FPS25.areValidValues(hours, minutes, seconds, frames))
-			throw new IllegalArgumentException("Invalid timecode value");
+			throw new IllegalArgumentException(INVALID_TIMECODE.getErrorMessage());
 		return new Fps25Timecode(hours, minutes, seconds, frames);
 	}
 
 	public static Fps25Timecode of(int frameCount) {
 		if (frameCount < 0)
-			throw new IllegalArgumentException("Frame count must be greater than zero");
+			throw new IllegalArgumentException(FRAME_COUNT_LESS_0.getErrorMessage());
 		if (frameCount >= FRAME_COUNT_LIMIT)
-			throw new IllegalArgumentException("Frame count is greater than " + FRAME_COUNT_LIMIT);
+			throw new IllegalArgumentException(FRAME_COUNT_GREATER_LIMIT.getErrorMessage() + " " + FRAME_COUNT_LIMIT);
 		return new Fps25Timecode(frameCount);
 	}
 
 	@Override
 	public Timecode add(Timecode timecode) throws TimecodeException {
 		if (! (timecode instanceof Fps25Timecode))
-			throw new TimecodeException("Addition operation is only valid between instances of the same Timecode class");
-
-		frameCount += timecode.getFrameCount();
-		countUnits(frameCount);
-
-		if (frameCount >= FRAME_COUNT_LIMIT)
-			throw new TimecodeException("Result is greater than limit");
-
+			throw new TimecodeException(INVALID_ADDITION);
+		addition(timecode);
 		return this;
 	}
 
 	@Override
 	public Timecode subtract(Timecode timecode) throws TimecodeException {
 		if (! (timecode instanceof Fps25Timecode))
-			throw new TimecodeException("Subtract operation is only valid between instances of the same Timecode class");
-
-		frameCount -= timecode.getFrameCount();
-		if (frameCount > 0)
-			countUnits(frameCount);
-		else {
-			int oldHours = hours;
-			countUnits(FRAME_COUNT_LIMIT + frameCount);    // positive number of frames
-			hours = oldHours - timecode.getHours();
-		}
-
-		if (Math.abs(frameCount) >= FRAME_COUNT_LIMIT)
-			throw new TimecodeException("Result value is lesser than " + "limit");
-
+			throw new TimecodeException(INVALID_SUBTRACTION);
+		subtraction(timecode);
 		return this;
 	}
 
 	@Override
 	public int getFrameCountLimit() {
 		return FRAME_COUNT_LIMIT;
+	}
+
+	@Override
+	protected int getFrameMax() {
+		return FRAME_MAX;
 	}
 }

@@ -16,6 +16,8 @@
 
 package com.transgressoft.timecode;
 
+import static com.transgressoft.timecode.TimecodeException.ErrorCase.*;
+
 /**
  * Base class implementation of {@link Timecode}.
  *
@@ -55,6 +57,47 @@ public abstract class TimecodeBase implements Timecode {
     protected TimecodeBase(int frameCount) {
         this.frameCount = frameCount;
     }
+
+    protected void countFrames(int hours, int minutes, int seconds, int frames) {
+        frameCount += frames;
+        frameCount += seconds * getFrameMax();
+        frameCount += minutes * 60 * getFrameMax();
+        frameCount += hours * 60 * 60 * getFrameMax();
+    }
+
+    protected void countUnits(int numberOfFrames) {
+        int totalFrames = numberOfFrames;
+        hours = totalFrames / (60 * 60 * getFrameMax());
+        totalFrames -= hours * (60 * 60 * getFrameMax());
+        minutes = totalFrames / (60 * getFrameMax());
+        totalFrames -= minutes * (60 * getFrameMax());
+        seconds = totalFrames / getFrameMax();
+        frames = totalFrames % getFrameMax();
+    }
+
+    protected void addition(Timecode timecode) throws TimecodeException {
+        frameCount += timecode.getFrameCount();
+        countUnits(frameCount);
+
+        if (frameCount >= getFrameCountLimit())
+            throw new TimecodeException(RESULT_GREATER_LIMIT);
+    }
+
+    protected void subtraction(Timecode timecode) throws TimecodeException {
+        frameCount -= timecode.getFrameCount();
+        if (frameCount > 0)
+            countUnits(frameCount);
+        else {
+            int oldHours = hours;
+            countUnits(getFrameCountLimit() + frameCount);    // positive number of frames
+            hours = oldHours - timecode.getHours();
+        }
+
+        if (Math.abs(frameCount) >= getFrameCountLimit())
+            throw new TimecodeException(RESULT_LESSER_LIMIT);
+    }
+
+    protected abstract int getFrameMax();
 
     public abstract int getFrameCountLimit();
 

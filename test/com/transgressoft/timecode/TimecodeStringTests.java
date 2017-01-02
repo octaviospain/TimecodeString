@@ -3,6 +3,7 @@ package com.transgressoft.timecode;
 import com.transgressoft.timecode.fps25.*;
 import org.junit.jupiter.api.*;
 
+import static com.transgressoft.timecode.TimecodeException.ErrorCase.*;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
@@ -48,8 +49,8 @@ public class TimecodeStringTests {
 		timecodeException = new TimecodeException(new Throwable());
 		assertTrue(timecodeException.getCause() != null);
 
-		timecodeException = new TimecodeException("Message", new Throwable());
-		assertTrue(timecodeException.getMessage().equals("Message"));
+		timecodeException = new TimecodeException(INVALID_TIMECODE, new Throwable());
+		assertTrue(timecodeException.getMessage().equals(INVALID_TIMECODE.getErrorMessage()));
 		assertTrue(timecodeException.getCause() != null);
 	}
 
@@ -57,7 +58,7 @@ public class TimecodeStringTests {
 	@DisplayName ("Invalid frame rate type throws exception")
 	void testInvalidFrameRateType() {
 		TimecodeException exception = expectThrows(TimecodeException.class, () -> FrameRateType.fromString("GH45"));
-		assertEquals("Invalid frame rate format: GH45", exception.getMessage());
+		assertEquals("Invalid frame rate format", exception.getMessage());
 	}
 
 	@Test

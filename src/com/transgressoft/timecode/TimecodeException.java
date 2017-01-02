@@ -28,15 +28,37 @@ public class TimecodeException extends Exception {
 		super();
 	}
 
-	public TimecodeException(String message) {
-		super(message);
+	public TimecodeException(ErrorCase errorCase) {
+		super(errorCase.getErrorMessage());
 	}
 
 	public TimecodeException(Throwable cause) {
 		super(cause);
 	}
 
-	public TimecodeException(String message, Throwable cause) {
-		super(message, cause);
+	public TimecodeException(ErrorCase errorCase, Throwable cause) {
+		super(errorCase.getErrorMessage(), cause);
+	}
+
+	public enum ErrorCase {
+		INVALID_TIMECODE("Invalid timecode value"),
+		INVALID_FRAME_RATE("Invalid frame rate format"),
+		INVALID_INPUT_FORMAT("Invalid input format. Should be <frameCount> or hh:mm:ss:ff"),
+		FRAME_COUNT_LESS_0("Frame count must be greater than zero"),
+		FRAME_COUNT_GREATER_LIMIT("Frame count is greater than limit"),
+		INVALID_ADDITION("Addition operation is only valid between instances of the same Timecode class"),
+		INVALID_SUBTRACTION("Subtract operation is only valid between instances of the same Timecode class"),
+		RESULT_GREATER_LIMIT("Result is greater than limit"),
+		RESULT_LESSER_LIMIT("Result value is lesser than limit");
+
+		private String errorMessage;
+
+		ErrorCase(String errorMessage) {
+			this.errorMessage = errorMessage;
+		}
+
+		public String getErrorMessage() {
+			return errorMessage;
+		}
 	}
 }

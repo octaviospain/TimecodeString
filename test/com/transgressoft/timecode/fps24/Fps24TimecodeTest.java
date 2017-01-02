@@ -65,7 +65,7 @@ public class Fps24TimecodeTest extends TimecodeTestBase {
         IllegalArgumentException exception = expectThrows(IllegalArgumentException.class,
                                                           () -> TimecodeFactory.createTimeCode(FrameRateType.FPS24, 2073600));
 
-        assertEquals("Frame count is greater than 2073600", exception.getMessage());
+        assertEquals("Frame count is greater than limit 2073600", exception.getMessage());
     }
 
     @Test

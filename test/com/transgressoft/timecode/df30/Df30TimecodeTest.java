@@ -64,7 +64,7 @@ public class Df30TimecodeTest extends TimecodeTestBase {
 		IllegalArgumentException exception = expectThrows(IllegalArgumentException.class, () -> TimecodeFactory
 				.createTimeCode(FrameRateType.DF30, 2589407));
 
-		assertEquals("Frame count is greater than 2589407", exception.getMessage());
+		assertEquals("Frame count is greater than limit 2589407", exception.getMessage());
 	}
 
 	@Test
