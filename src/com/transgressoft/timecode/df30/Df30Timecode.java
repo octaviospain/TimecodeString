@@ -34,7 +34,7 @@ public class Df30Timecode extends TimecodeBase {
 	 */
 	private static final int FRAME_COUNT_LIMIT = 2589407;
 
-	protected Df30Timecode(int hours, int minutes, int seconds, int frames) {
+	private Df30Timecode(int hours, int minutes, int seconds, int frames) {
 		super(hours, minutes, seconds, frames);
 		frameCount += frames;
 		frameCount += seconds * 30;
@@ -49,7 +49,7 @@ public class Df30Timecode extends TimecodeBase {
 		frameCount -= 2 * (totalMinutes - totalMinutes / 10);
 	}
 
-	protected Df30Timecode(int frameCount) {
+	private Df30Timecode(int frameCount) {
 		super(frameCount);
 		reverseDropFrameCalculation(frameCount);
 	}
@@ -101,7 +101,7 @@ public class Df30Timecode extends TimecodeBase {
 			throw new TimecodeException("Subtract operation is only valid between instances of the same Timecode class");
 
 		frameCount -= timecode.getFrameCount();
-		if (frameCount >= 0)
+		if (frameCount > 0)
 			reverseDropFrameCalculation(frameCount);
 		else {
 			int oldHours = hours;
@@ -137,11 +137,6 @@ public class Df30Timecode extends TimecodeBase {
 				hours++;
 			}
 		}
-	}
-
-	@Override
-	public int getFrameCount() {
-		return frameCount;
 	}
 
 	@Override

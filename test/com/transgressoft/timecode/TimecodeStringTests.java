@@ -61,14 +61,6 @@ public class TimecodeStringTests {
 	}
 
 	@Test
-	@DisplayName ("24FPS frame rate not supported")
-	void test24FpsTimecodeStringCreation() {
-		UnsupportedOperationException exception = expectThrows(UnsupportedOperationException.class,
-													   () -> TimecodeString.of(FrameRateType.FPS24.toString(), 12345));
-		assertEquals("24fps frame rate is not supported yet", exception.getMessage());
-	}
-
-	@Test
 	@DisplayName ("30FPS frame rate not supported")
 	void test30FpsTimecodeStringCreation() {
 		UnsupportedOperationException exception = expectThrows(UnsupportedOperationException.class,

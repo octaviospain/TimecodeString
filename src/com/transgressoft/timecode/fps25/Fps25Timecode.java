@@ -33,7 +33,7 @@ public class Fps25Timecode extends TimecodeBase {
 	 */
 	private static final int FRAME_COUNT_LIMIT = 2160000;
 
-	protected Fps25Timecode(int hours, int minutes, int seconds, int frames) {
+	private Fps25Timecode(int hours, int minutes, int seconds, int frames) {
 		super(hours, minutes, seconds, frames);
 		frameCount += frames;
 		frameCount += seconds * 25;
@@ -41,7 +41,7 @@ public class Fps25Timecode extends TimecodeBase {
 		frameCount += hours * 60 * 60 * 25;
 	}
 
-	protected Fps25Timecode(int frameCount) {
+	private Fps25Timecode(int frameCount) {
 		super(frameCount);
 		countUnits(frameCount);
 	}
@@ -102,11 +102,6 @@ public class Fps25Timecode extends TimecodeBase {
 			throw new TimecodeException("Result value is lesser than " + "limit");
 
 		return this;
-	}
-
-	@Override
-	public int getFrameCount() {
-		return frameCount;
 	}
 
 	@Override

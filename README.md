@@ -37,4 +37,4 @@ Options:
 
 ### TO DO
 
-* Implement 24Fps and 30Fps Timecodes
+* Implement 30Fps and other Timecodes

@@ -24,100 +24,102 @@ package com.transgressoft.timecode;
  */
 public abstract class TimecodeBase implements Timecode {
 
-	protected int hours = 0;
-	protected int minutes = 0;
-	protected int seconds = 0;
-	protected int frames = 0;
-	protected int frameCount = 0;
+    protected int hours = 0;
+    protected int minutes = 0;
+    protected int seconds = 0;
+    protected int frames = 0;
+    protected int frameCount = 0;
 
-	/**
-	 * Creates a new instance of a {@link Timecode} by the
-	 * given hours, minutes, seconds and frames
-	 *
-	 * @param hours
-	 * @param minutes
-	 * @param seconds
-	 * @param frames
-	 */
-	protected TimecodeBase(int hours, int minutes, int seconds, int frames) {
-		this.hours = hours;
-		this.minutes = minutes;
-		this.seconds = seconds;
-		this.frames = frames;
-	}
+    /**
+     * Creates a new instance of a {@link Timecode} by the
+     * given hours, minutes, seconds and frames
+     *
+     * @param hours
+     * @param minutes
+     * @param seconds
+     * @param frames
+     */
+    protected TimecodeBase(int hours, int minutes, int seconds, int frames) {
+        this.hours = hours;
+        this.minutes = minutes;
+        this.seconds = seconds;
+        this.frames = frames;
+    }
 
-	/**
-	 * Creates a new instance of a {@link Timecode} by the
-	 * given frame count
-	 *
-	 * @param frameCount
-	 */
-	protected TimecodeBase(int frameCount) {
-		this.frameCount = frameCount;
-	}
+    /**
+     * Creates a new instance of a {@link Timecode} by the
+     * given frame count
+     *
+     * @param frameCount
+     */
+    protected TimecodeBase(int frameCount) {
+        this.frameCount = frameCount;
+    }
 
-	public abstract int getFrameCountLimit();
+    public abstract int getFrameCountLimit();
 
-	@Override
-	public int hashCode() {
-		int hash = 23;
-		hash = 71 * hash + frames;
-		hash = 71 * hash + seconds;
-		hash = 71 * hash + minutes;
-		hash = 71 * hash + hours;
-		hash = 71 * hash + frameCount;
-		return hash;
-	}
+    @Override
+    public int hashCode() {
+        int hash = 23;
+        hash = 71 * hash + frames;
+        hash = 71 * hash + seconds;
+        hash = 71 * hash + minutes;
+        hash = 71 * hash + hours;
+        hash = 71 * hash + frameCount;
+        return hash;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		boolean result;
-		if (obj instanceof TimecodeBase &&
-				((TimecodeBase) obj).getFrames() == frames &&
-				((TimecodeBase) obj).getSeconds() == seconds &&
-				((TimecodeBase) obj).getMinutes() == minutes &&
-				((TimecodeBase) obj).getHours() == hours &&
-				((TimecodeBase) obj).getFrameCount() == frameCount) {
-			result = true;
-		}
-		else {
-			result = false;
-		}
-		return result;
-	}
+    @Override
+    public boolean equals(Object obj) {
+        boolean result;
+        if (obj instanceof TimecodeBase && ((TimecodeBase) obj).getFrames() == frames && ((TimecodeBase) obj)
+                .getSeconds() == seconds && ((TimecodeBase) obj).getMinutes() == minutes && ((TimecodeBase) obj)
+                .getHours() == hours && ((TimecodeBase) obj).getFrameCount() == frameCount) {
+            result = true;
+        }
+        else {
+            result = false;
+        }
+        return result;
+    }
 
-	@Override
-	public int getFrames() {
-		return frames;
-	}
+    @Override
+    public int getFrames() {
+        return frames;
+    }
 
-	@Override
-	public int getSeconds() {
-		return seconds;
-	}
+    @Override
+    public int getSeconds() {
+        return seconds;
+    }
 
-	@Override
-	public int getMinutes() {
-		return minutes;
-	}
+    @Override
+    public int getMinutes() {
+        return minutes;
+    }
 
-	@Override
-	public int getHours() {
-		return hours;
-	}
+    @Override
+    public int getHours() {
+        return hours;
+    }
 
-	@Override
-	public String toString() {
-		return "Timecode[" + getStringRepresentation() + "/" + frameCount + "]";
-	}
+    @Override
+    public int getFrameCount() {
+        return frameCount;
+    }
 
-	@Override
-	public String getStringRepresentation() {
-		String timecodeStringRepresentation = "";
-		timecodeStringRepresentation += String.format("%02d", hours) + ":";
-		timecodeStringRepresentation += String.format("%02d", minutes) + ":";
-		timecodeStringRepresentation += String.format("%02d", seconds) + ":";
-		timecodeStringRepresentation += String.format("%02d", frames);
-		return timecodeStringRepresentation;
-	}
+    @Override
+    public String toString() {
+        return "Timecode[" + getStringRepresentation() + "/" + frameCount + "]";
+    }
+
+    @Override
+    public String getStringRepresentation() {
+        String timecodeStringRepresentation = "";
+        timecodeStringRepresentation += String.format("%02d", hours) + ":";
+        timecodeStringRepresentation += String.format("%02d", minutes) + ":";
+        timecodeStringRepresentation += String.format("%02d", seconds) + ":";
+        timecodeStringRepresentation += String.format("%02d", frames);
+        return timecodeStringRepresentation;
+    }
 }

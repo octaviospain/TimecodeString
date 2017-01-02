@@ -17,6 +17,7 @@
 package com.transgressoft.timecode;
 
 import com.transgressoft.timecode.df30.*;
+import com.transgressoft.timecode.fps24.*;
 import com.transgressoft.timecode.fps25.*;
 
 /**
@@ -29,6 +30,7 @@ public abstract class TimecodeFactory {
 
 	private static Fps25TimecodeFactory fps25TimecodeFactory = new Fps25TimecodeFactory();
 	private static Df30TimecodeFactory df30TimecodeFactory = new Df30TimecodeFactory();
+	private static Fps24TimecodeFactory fps24TimecodeFactory = new Fps24TimecodeFactory();
 
 	public static Timecode createTimeCode(FrameRateType type, int hours, int minutes, int seconds, int frames) {
 		TimecodeFactory timecodeFactory = chooseFactory(type);
@@ -39,7 +41,8 @@ public abstract class TimecodeFactory {
 		TimecodeFactory timecodeFactory = null;
 		switch (type) {
 			case FPS24:
-				throw new UnsupportedOperationException("24fps frame rate is not supported yet");    // TODO Implement
+				timecodeFactory = fps24TimecodeFactory;
+				break;
 			case FPS25:
 				timecodeFactory = fps25TimecodeFactory;
 				break;
