@@ -19,18 +19,20 @@ package com.transgressoft.timecode;
 import com.transgressoft.timecode.df30.*;
 import com.transgressoft.timecode.fps24.*;
 import com.transgressoft.timecode.fps25.*;
+import com.transgressoft.timecode.fps30.*;
 
 /**
  * Abstract factory class of creation of {@link Timecode} objects.
  *
  * @author Octavio Calleya
- * @version 0.1
+ * @version 1.0
  */
 public abstract class TimecodeFactory {
 
 	private static Fps25TimecodeFactory fps25TimecodeFactory = new Fps25TimecodeFactory();
 	private static Df30TimecodeFactory df30TimecodeFactory = new Df30TimecodeFactory();
 	private static Fps24TimecodeFactory fps24TimecodeFactory = new Fps24TimecodeFactory();
+	private static Fps30TimecodeFactory fps30TimecodeFactory = new Fps30TimecodeFactory();
 
 	public static Timecode createTimeCode(FrameRateType type, int hours, int minutes, int seconds, int frames) {
 		TimecodeFactory timecodeFactory = chooseFactory(type);
@@ -47,7 +49,8 @@ public abstract class TimecodeFactory {
 				timecodeFactory = fps25TimecodeFactory;
 				break;
 			case FPS30:
-				throw new UnsupportedOperationException("30fps frame rate is not supported yet");    // TODO implement
+				timecodeFactory = fps30TimecodeFactory;
+				break;
 			case DF30:
 				timecodeFactory = df30TimecodeFactory;
 				break;

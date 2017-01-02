@@ -22,7 +22,7 @@ import static com.transgressoft.timecode.TimecodeException.ErrorCase.*;
  * Base class implementation of {@link Timecode}.
  *
  * @author Octavio Calleya
- * @version 0.1
+ * @version 1.0
  */
 public abstract class TimecodeBase implements Timecode {
 

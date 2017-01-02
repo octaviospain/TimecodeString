@@ -22,7 +22,7 @@ import static com.transgressoft.timecode.TimecodeException.ErrorCase.INVALID_INP
  * Enumeration of different type of input formats of the value of a timecode.
  *
  * @author Octavio Calleya
- * @version 0.1
+ * @version 1.0
  */
 public enum TimecodeInputType {
 

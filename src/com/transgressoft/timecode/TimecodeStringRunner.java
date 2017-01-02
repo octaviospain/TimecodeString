@@ -26,7 +26,7 @@ import java.util.*;
  * Uses {@link Docopt} library to parse command line arguments.
  *
  * @author Octavio Calleya
- * @version 0.1
+ * @version 1.0
  * @see <a href="http://docopt.org">docopt.org</a>
  * @see <a href="https://github.com/docopt/docopt.java">docopt for Java</a>
  */

@@ -22,7 +22,7 @@ import com.transgressoft.timecode.*;
  * Factory class that creates {@link Df30Timecode} objects.
  *
  * @author Octavio Calleya
- * @version 0.1
+ * @version 1.0
  */
 public class Df30TimecodeFactory extends TimecodeFactory {
 

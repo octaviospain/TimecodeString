@@ -25,7 +25,7 @@ import static com.transgressoft.timecode.TimecodeException.ErrorCase.*;
  * a 25 fps video timecode.
  *
  * @author Octavio Calleya
- * @version 0.1
+ * @version 1.0
  * @see <a href="https://en.wikipedia.org/wiki/SMPTE_timecode">SMPTE Timecode</a>
  */
 public class Fps25Timecode extends TimecodeBase {

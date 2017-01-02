@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Unit tests for {@link Fps24Timecode} class.
  *
  * @author Octavio Calleya
- * @version 0.1
+ * @version 1.0
  */
 public class Fps24TimecodeTest extends TimecodeTestBase {
 

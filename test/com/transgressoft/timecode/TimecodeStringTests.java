@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * {@link TimecodeInputType} and {@link TimecodeBase}.
  *
  * @author Octavio Calleya
- * @version 0.1
+ * @version 1.0
  */
 public class TimecodeStringTests {
 
@@ -59,14 +59,6 @@ public class TimecodeStringTests {
 	void testInvalidFrameRateType() {
 		TimecodeException exception = expectThrows(TimecodeException.class, () -> FrameRateType.fromString("GH45"));
 		assertEquals("Invalid frame rate format", exception.getMessage());
-	}
-
-	@Test
-	@DisplayName ("30FPS frame rate not supported")
-	void test30FpsTimecodeStringCreation() {
-		UnsupportedOperationException exception = expectThrows(UnsupportedOperationException.class,
-													   () -> TimecodeString.of(FrameRateType.FPS30.toString(), 12345));
-		assertEquals("30fps frame rate is not supported yet", exception.getMessage());
 	}
 
 	@Test

@@ -25,7 +25,7 @@ import static com.transgressoft.timecode.TimecodeException.ErrorCase.*;
  * a Drop-Frame 30 (29.97 fps) video timecode.
  *
  * @author Octavio Calleya
- * @version 0.1
+ * @version 1.0
  * @see <a href="https://en.wikipedia.org/wiki/SMPTE_timecode">SMPTE Timecode</a>
  */
 public class Df30Timecode extends TimecodeBase {

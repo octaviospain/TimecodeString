@@ -4,9 +4,9 @@
 [![license](https://img.shields.io/badge/license-apache%202-brightgreen.svg)](https://github.com/octaviospain/TimecodeString/blob/master/LICENSE.txt)
 
 Library that converts between frame counts and a [timecode](https://en.wikipedia.org/wiki/SMPTE_timecode) string representation.
-The library supports multiple frame rates including 25fps and DF30 (29.97fps).
+The library supports multiple frame rates including such as 24fps, 25fps, 30fps and DF30 (29.97fps).
 
-# Usage
+## Usage
 You can use the TimecodeString library by two ways:
 
 1. Instantiating the `TimecodeString.java` class in your java project
@@ -35,6 +35,6 @@ Options:
    -o = <output_file> specify output file [default: output.txt]
 ```
 
-### TO DO
+## To do
 
-* Implement 30Fps and other Timecodes
+* Implement other Timecodes

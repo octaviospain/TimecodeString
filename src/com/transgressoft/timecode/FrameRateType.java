@@ -23,7 +23,7 @@ import static com.transgressoft.timecode.TimecodeException.ErrorCase.INVALID_FRA
  * rate given a string, and check if his value is valid.
  *
  * @author Octavio Calleya
- * @version 0.1
+ * @version 1.0
  */
 public enum FrameRateType {
 	FPS24("24fps"),

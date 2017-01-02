@@ -20,7 +20,7 @@ package com.transgressoft.timecode;
  * Interface for Timecodes.
  *
  * @author Octavio Calleya
- * @version 0.1
+ * @version 1.0
  * @see <a href="https://en.wikipedia.org/wiki/SMPTE_timecode">SMPTE Timecode</a>
  */
 public interface Timecode {

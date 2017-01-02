@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Unit tests for {@link Df30Timecode} class.
  *
  * @author Octavio Calleya
- * @version 0.1
+ * @version 1.0
  */
 public class Df30TimecodeTest extends TimecodeTestBase {
 

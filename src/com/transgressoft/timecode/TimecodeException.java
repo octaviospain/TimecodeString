@@ -20,7 +20,7 @@ package com.transgressoft.timecode;
  * Exception class for this {@link TimecodeString} library.
  *
  * @author Octavio Calleya
- * @version 0.1
+ * @version 1.0
  */
 public class TimecodeException extends Exception {
 

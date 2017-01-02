@@ -22,7 +22,7 @@ import java.util.*;
  * Class that converts between frame counts and a timecode string representation.
  *
  * @author Octavio Calleya
- * @version 0.1
+ * @version 1.0
  */
 public class TimecodeString {
 

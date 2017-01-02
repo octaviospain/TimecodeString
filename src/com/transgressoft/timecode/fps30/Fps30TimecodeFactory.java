@@ -14,25 +14,25 @@
  * limitations under the License.
  */
 
-package com.transgressoft.timecode.fps25;
+package com.transgressoft.timecode.fps30;
 
 import com.transgressoft.timecode.*;
 
 /**
- * Factory class that creates {@link Fps25Timecode} objects.
+ * Factory class that creates {@link Fps30Timecode} objects.
  *
  * @author Octavio Calleya
  * @version 1.0
  */
-public class Fps25TimecodeFactory extends TimecodeFactory {
+public class Fps30TimecodeFactory extends TimecodeFactory {
 
-	@Override
-	public Timecode createTimeCode(int hours, int minutes, int seconds, int frames) {
-		return Fps25Timecode.of(hours, minutes, seconds, frames);
-	}
+    @Override
+    public Timecode createTimeCode(int hours, int minutes, int seconds, int frames) {
+        return Fps30Timecode.of(hours, minutes, seconds, frames);
+    }
 
-	@Override
-	public Timecode createTimeCode(int frameCount) {
-		return Fps25Timecode.of(frameCount);
-	}
+    @Override
+    public Timecode createTimeCode(int frameCount) {
+        return Fps30Timecode.of(frameCount);
+    }
 }

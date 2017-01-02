@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Acceptance tests for the given input and output cases with the problem.
  *
  * @author Octavio Calleya
- * @version 0.1
+ * @version 1.0
  */
 @RunWith(JUnitPlatform.class)
 public class AcceptanceTest {
