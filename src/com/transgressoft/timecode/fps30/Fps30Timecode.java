@@ -32,7 +32,7 @@ public class Fps30Timecode extends TimecodeBase {
 
     /**
      * Maximum amount of frames accepted, since the maximum value
-     * of the Timecode can be 23:59:59:30:
+     * of the Timecode can be 23:59:59:29:
      *
      * <p>24 * 60 * 60 * 30 = 2 592 000</p>
      */
