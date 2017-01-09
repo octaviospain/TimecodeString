@@ -66,7 +66,7 @@ public class TimecodeStringTests {
 	void testTimecodeStringWithNegativeHours() {
 		IllegalArgumentException exception = expectThrows(IllegalArgumentException.class,
 											  () -> TimecodeString.of(FrameRateType.DF30.toString(), - 12, 50, 30, 12));
-		assertEquals("Invalid timecode value", exception.getMessage());
+		assertEquals("Invalid timecode value [-12, 50, 30, 12]", exception.getMessage());
 	}
 
 	@Test
@@ -74,7 +74,7 @@ public class TimecodeStringTests {
 	void testTimecodeStringWithOutOfRangeHours() {
 		IllegalArgumentException exception = expectThrows(IllegalArgumentException.class,
 											  () -> TimecodeString.of(FrameRateType.FPS25.toString(), 24, 50, 30, 12));
-		assertEquals("Invalid timecode value", exception.getMessage());
+		assertEquals("Invalid timecode value [24, 50, 30, 12]", exception.getMessage());
 	}
 
 	@Test
@@ -82,7 +82,7 @@ public class TimecodeStringTests {
 	void testTimecodeStringWithNegativeMinutes() {
 		IllegalArgumentException exception = expectThrows(IllegalArgumentException.class,
 											  () -> TimecodeString.of(FrameRateType.DF30.toString(), 12, - 5, 30, 12));
-		assertEquals("Invalid timecode value", exception.getMessage());
+		assertEquals("Invalid timecode value [12, -5, 30, 12]", exception.getMessage());
 	}
 
 	@Test
@@ -90,7 +90,7 @@ public class TimecodeStringTests {
 	void testTimecodeStringWithOutOfRangeMinutes() {
 		IllegalArgumentException exception = expectThrows(IllegalArgumentException.class,
 											  () -> TimecodeString.of(FrameRateType.FPS25.toString(), 12, 60, 30, 12));
-		assertEquals("Invalid timecode value", exception.getMessage());
+		assertEquals("Invalid timecode value [12, 60, 30, 12]", exception.getMessage());
 	}
 
 	@Test
@@ -98,7 +98,7 @@ public class TimecodeStringTests {
 	void testTimecodeStringWithNegativeSeconds() {
 		IllegalArgumentException exception = expectThrows(IllegalArgumentException.class,
 											  () -> TimecodeString.of(FrameRateType.DF30.toString(), 12, 50, - 5, 12));
-		assertEquals("Invalid timecode value", exception.getMessage());
+		assertEquals("Invalid timecode value [12, 50, -5, 12]", exception.getMessage());
 	}
 
 	@Test
@@ -106,7 +106,7 @@ public class TimecodeStringTests {
 	void testTimecodeStringWithOutOfRangeSeconds() {
 		IllegalArgumentException exception = expectThrows(IllegalArgumentException.class,
 											  () -> TimecodeString.of(FrameRateType.FPS25.toString(), 12, 50, 60, 12));
-		assertEquals("Invalid timecode value", exception.getMessage());
+		assertEquals("Invalid timecode value [12, 50, 60, 12]", exception.getMessage());
 	}
 
 	@Test
@@ -114,6 +114,6 @@ public class TimecodeStringTests {
 	void testTimecodeStringWithNegativeFrames() throws Exception {
 		IllegalArgumentException exception = expectThrows(IllegalArgumentException.class,
 											  () -> TimecodeString.of(FrameRateType.DF30.toString(), 12, 50, 30, - 5));
-		assertEquals("Invalid timecode value", exception.getMessage());
+		assertEquals("Invalid timecode value [12, 50, 30, -5]", exception.getMessage());
 	}
 }

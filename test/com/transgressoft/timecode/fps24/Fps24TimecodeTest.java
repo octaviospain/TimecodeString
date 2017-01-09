@@ -47,7 +47,7 @@ public class Fps24TimecodeTest extends TimecodeTestBase {
         IllegalArgumentException exception = expectThrows(IllegalArgumentException.class,
                                                           () -> TimecodeString.of(FrameRateType.FPS24.toString(), 12, 50, 30, 25));
 
-        assertEquals("Invalid timecode value", exception.getMessage());
+        assertEquals("Invalid timecode value [12, 50, 30, 25]", exception.getMessage());
     }
 
     @Test

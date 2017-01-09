@@ -21,6 +21,8 @@ import org.docopt.*;
 import java.io.*;
 import java.util.*;
 
+import static com.google.common.base.Preconditions.checkArgument;
+
 /**
  * Sample class to run the TimecodeString library by command line.
  * Uses {@link Docopt} library to parse command line arguments.
@@ -77,10 +79,8 @@ public class TimecodeStringRunner {
 
 	private static void readTimecodesFromFile() throws Exception {
 		File inputFile = new File(inputFilePath);
-		if (! inputFile.exists())
-			throw new IllegalArgumentException("Input file doesn't exist");
-		if (inputFile.isDirectory())
-			throw new IllegalArgumentException("Input file can't be a directory");
+		checkArgument(inputFile.exists(), "Input file doesn't exist");
+		checkArgument(inputFile.isDirectory(), "Input file can't be a directory");
 
 		timecodes = new ArrayList<>();
 		Scanner scanner = new Scanner(inputFile);

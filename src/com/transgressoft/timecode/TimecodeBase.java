@@ -16,6 +16,9 @@
 
 package com.transgressoft.timecode;
 
+import java.util.*;
+
+import static com.google.common.base.Preconditions.*;
 import static com.transgressoft.timecode.TimecodeException.ErrorCase.*;
 
 /**
@@ -55,6 +58,9 @@ public abstract class TimecodeBase implements Timecode {
      * @param frameCount
      */
     protected TimecodeBase(int frameCount) {
+        checkArgument(frameCount >= 0, FRAME_COUNT_LESS_0.getErrorMessage());
+        String errorMessage = FRAME_COUNT_GREATER_LIMIT.getErrorMessage() + " " + getFrameCountLimit();
+        checkArgument(frameCount < getFrameCountLimit(), errorMessage);
         this.frameCount = frameCount;
     }
 
@@ -103,13 +109,7 @@ public abstract class TimecodeBase implements Timecode {
 
     @Override
     public int hashCode() {
-        int hash = 23;
-        hash = 71 * hash + frames;
-        hash = 71 * hash + seconds;
-        hash = 71 * hash + minutes;
-        hash = 71 * hash + hours;
-        hash = 71 * hash + frameCount;
-        return hash;
+        return Objects.hash(frames, seconds, minutes, hours, frameCount);
     }
 
     @Override

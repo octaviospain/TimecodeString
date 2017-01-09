@@ -18,6 +18,7 @@ package com.transgressoft.timecode.fps25;
 
 import com.transgressoft.timecode.*;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.transgressoft.timecode.TimecodeException.ErrorCase.*;
 
 /**
@@ -50,16 +51,12 @@ public class Fps25Timecode extends TimecodeBase {
 	}
 
 	public static Fps25Timecode of(int hours, int minutes, int seconds, int frames) {
-		if (! FrameRateType.FPS25.areValidValues(hours, minutes, seconds, frames))
-			throw new IllegalArgumentException(INVALID_TIMECODE.getErrorMessage());
+		boolean validValues = FrameRateType.FPS25.areValidValues(hours, minutes, seconds, frames);
+		checkArgument(validValues, INVALID_TIMECODE.getErrorMessage(), hours, minutes, seconds, frames);
 		return new Fps25Timecode(hours, minutes, seconds, frames);
 	}
 
 	public static Fps25Timecode of(int frameCount) {
-		if (frameCount < 0)
-			throw new IllegalArgumentException(FRAME_COUNT_LESS_0.getErrorMessage());
-		if (frameCount >= FRAME_COUNT_LIMIT)
-			throw new IllegalArgumentException(FRAME_COUNT_GREATER_LIMIT.getErrorMessage() + " " + FRAME_COUNT_LIMIT);
 		return new Fps25Timecode(frameCount);
 	}
 
