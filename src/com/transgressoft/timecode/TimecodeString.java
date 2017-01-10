@@ -33,11 +33,9 @@ public class TimecodeString {
 	private static int frameCount;
 
 	private Timecode timecode;
-	private TimecodeInputType inputType;
 
-	private TimecodeString(Timecode timecode, TimecodeInputType inputType) {
+	private TimecodeString(Timecode timecode) {
 		this.timecode = timecode;
-		this.inputType = inputType;
 	}
 
 	/**
@@ -80,7 +78,7 @@ public class TimecodeString {
 	public static TimecodeString of(String frameRateString, int frameCount) throws TimecodeException {
 		FrameRateType frameRateType = FrameRateType.fromString(frameRateString);
 		Timecode givenTimecode = TimecodeFactory.createTimeCode(frameRateType, frameCount);
-		return new TimecodeString(givenTimecode, TimecodeInputType.FRAME_COUNT_INPUT_TYPE);
+		return new TimecodeString(givenTimecode);
 	}
 
 	private static void parseInputByUnits(String input) {
@@ -106,7 +104,7 @@ public class TimecodeString {
 	public static TimecodeString of(String frameRateString, int hh, int mm, int ss, int ff) throws TimecodeException {
 		FrameRateType frameRateType = FrameRateType.fromString(frameRateString);
 		Timecode givenTimecode = TimecodeFactory.createTimeCode(frameRateType, hh, mm, ss, ff);
-		return new TimecodeString(givenTimecode, TimecodeInputType.UNITS_INPUT_TYPE);
+		return new TimecodeString(givenTimecode);
 	}
 
 	private static void clearStaticValues() {
@@ -117,12 +115,11 @@ public class TimecodeString {
 		frameCount = 0;
 	}
 
-	public String getOppositeRepresentation() {
-		String timeCodeRepresentation = null;
-		if (inputType.equals(TimecodeInputType.UNITS_INPUT_TYPE))
-			timeCodeRepresentation = Long.toString(timecode.getFrameCount());
-		else if (inputType.equals(TimecodeInputType.FRAME_COUNT_INPUT_TYPE))
-			timeCodeRepresentation = timecode.getStringRepresentation();
-		return timeCodeRepresentation;
+	public String getFrameCountString() {
+	    return Long.toString(timecode.getFrameCount());
+    }
+
+	public String getFullTimecodeString() {
+		return timecode.getStringRepresentation();
 	}
 }

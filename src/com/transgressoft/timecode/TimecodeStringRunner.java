@@ -35,7 +35,7 @@ import static com.google.common.base.Preconditions.checkArgument;
 public class TimecodeStringRunner {
 
 	/***************************
-	 * Command line usage
+	 * Command line usage	   *
 	 ***************************/
 
 	private static final String DOC = "Timecode String.\n\n" +
@@ -65,7 +65,7 @@ public class TimecodeStringRunner {
 				if (! outputFilePath.equals("output.txt"))
 					System.err.println(DOC);
 				else
-					System.out.println(TimecodeString.of(frameRate, value).getOppositeRepresentation());
+					System.out.println(TimecodeString.of(frameRate, value).getFullTimecodeString());
 			}
 			else if (inputFilePath != null) {
 				readTimecodesFromFile();
@@ -106,7 +106,7 @@ public class TimecodeStringRunner {
 
 		PrintWriter printWriter = new PrintWriter(new FileOutputStream(outputFile));
 		for (TimecodeString timecodeString : timecodes)
-			printWriter.println(timecodeString.getOppositeRepresentation());
+			printWriter.println(timecodeString.getFullTimecodeString());
 		printWriter.close();
 		System.out.println("Timecode string conversion successfully dumped to " + outputFile.getAbsolutePath());
 	}
